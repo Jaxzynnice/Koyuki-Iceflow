@@ -352,24 +352,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                     statusIndicator.className = 'api-status';
                     
                     // Set status based on item.status (or default to "ready")
-                    const status = item.status || "ready";
+                    const status = item.status || "ACTIVE";
                     let statusClass, statusIcon, statusTooltip;
                     
                     switch(status) {
-                        case "error":
+                        case "ERROR":
                             statusClass = "status-error";
-                            statusIcon = "fa-exclamation-triangle";
-                            statusTooltip = "API has errors";
+                            statusIcon = "fa-circle-xmark";
+                            statusTooltip = "This feature has errors";
                             break;
-                        case "update":
+                        case "MAINTENANCE":
+                            statusClass = "status-maintenance";
+                            statusIcon = "fa-circle-down";
+                            statusTooltip = "This feature has maintenance";
+                            break;
+                        case "NEW":
+                            statusClass = "status-new";
+                            statusIcon = "fa-circle-plus";
+                            statusTooltip = "This feature was added";
+                            break;
+                        case "UPDATE":
                             statusClass = "status-update";
-                            statusIcon = "fa-arrow-up";
-                            statusTooltip = "Updates available";
+                            statusIcon = "fa-circle-up";
+                            statusTooltip = "New update available on this feature";
                             break;
-                        default: // "ready"
-                            statusClass = "status-ready";
-                            statusIcon = "fa-circle";
-                            statusTooltip = "API is ready";
+                        default: // "ACTIVE"
+                            statusClass = "status-active";
+                            statusIcon = "fa-circle-check";
+                            statusTooltip = "This feature is active";
                     }
                     
                     statusIndicator.classList.add(statusClass);
