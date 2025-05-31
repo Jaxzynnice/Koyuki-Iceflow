@@ -1,64 +1,116 @@
 {
-  "name": "Falcon-Api UI",
-  "version": "v1.0.0",
-  "description": "Simple and easy to use API.",
-  "bannerImage": "/src/banner.jpg",
-  "header": {
-    "status": "Online!"
-  },
-  "apiSettings": {
-    "creator": "FlowFalcon", 
-    "apikey": ["falcon-api"]
-  },
-  "categories": [
-    {
-      "name": "AI (Artificial Intelligence)",
-      "items": [
-        {
-          "name": "LuminAI",
-          "desc": "Talk with luminai",
-          "path": "/ai/luminai?text=",
-          "status": "ready",
-          "params": {
-            "text": "Text for luminai to respond to"
-          }
+    "name": "Iceflow API",
+    "version": "v1.1.5",
+    "description": "Unlock the power of seamless integration with our comprehensive Koyuki Iceflow API suite. Designed for developers, by developers.",
+    "bannerImage": "/src/banner.png",
+    "header": {
+        "status": "Free!"
+    },
+    "apiSettings": {
+        "creator": "Iceflow",
+        "apikey": ["ice-api"]
+    },
+    "categories": [{
+        "name": "AI (Artificial Intelligence)",
+        "items": [{
+            "name": "Dopple AI",
+            "desc": "Talk with Dopple AI",
+            "path": "/ai/dopple?text=",
+            "status": "UPDATE",
+            "params": {
+                "text": "Text for Dopple AI to respond to"
+            }
         },
-       {
-          "name": "HydroMind",
-          "desc": "See the list of supported AI models here: https://mind.hydrooo.web.id",
-          "path": "/ai/hydromind?text=&model=",
-          "status": "ready",
-          "params": {
-            "text": "Teks atau perintah untuk chat AI",
-            "model":"1See the list of supported AI models here: https://mind.hydrooo.web.id"
-          }
-        }
-      ]
+        {
+            "name": "Felo AI",
+            "desc": "Talk with Felo AI",
+            "path": "/ai/felo?text=",
+            "status": "MAINTENANCE",
+            "params": {
+                "text": "Text for Felo AI to respond to"
+            }
+        },
+        {
+            "name": "Koyuki AI",
+            "desc": "Talk with Koyuki AI",
+            "path": "/ai/koyuki?text=",
+            "status": "NEW",
+            "params": {
+                "text": "Text for Koyuki Iceflow to respond to"
+            }
+        },
+        {
+            "name": "Lumin AI",
+            "desc": "Talk with Lumin AI",
+            "path": "/ai/lumin?text=",
+            "status": "ACTIVE",
+            "params": {
+                "text": "Text for Lumin AI to respond to"
+            }
+        },
+        {
+            "name": "Venice AI",
+            "desc": "Talk with Felo AI",
+            "path": "/ai/venice?text=",
+            "status": "ACTIVE",
+            "params": {
+                "text": "Text for Venice AI to respond to"
+            }
+        },
+        {
+            "name": "HydroMind",
+            "desc": "See the list of supported AI models here: https://mind.hydrooo.web.id",
+            "path": "/ai/hydromind?text=&model=",
+            "status": "ERROR",
+            "params": {
+                "text": "Teks atau perintah untuk chat AI",
+                "model":"1See the list of supported AI models here: https://mind.hydrooo.web.id"
+            }
+        }]
     },
     {
-      "name": "Random",
-      "items": [
-        {
-          "name": "Blue Archive",
-          "desc": "Blue Archive Random Images",
-          "path": "/random/ba",
-          "status": "ready"
-        }
-      ]
+        "name": "AI Image",
+        "items": [{
+            "name": "Flux",
+            "desc": "Generate image with Flux",
+            "path": "/aiimg/flux?prompt=",
+            "status": "NEW",
+            "params": {
+                "prompt": "Enter a Prompt"
+            }
+        }]
     },
     {
-      "name": "Search Tools",
-      "items": [
+        "name": "Random",
+        "items": [{
+            "name": "Blue Archive",
+            "desc": "Blue Archive Random Images",
+            "path": "/random/ba",
+            "status": "ACTIVE"
+        },
         {
-          "name": "YouTube",
-          "desc": "Video search",
-          "path": "/search/youtube?q=",
-          "status": "ready",
-          "params": {
-            "q": "Search query"
-          }
-        }
-      ]
-    }               
-  ]
+            "name": "Cats",
+            "desc": "Get random cats image",
+            "path": "/random/cats",
+            "status": "NEW"
+        },
+        {
+            "name": "Meme",
+            "desc": "Get random meme image",
+            "path": "/random/meme",
+            "status": "NEW"
+        }]
+    },
+    {
+        "name": "Search",
+        "items": [{
+            "name": "YouTube",
+            "desc": "Video search",
+            "path": "/search/youtube?q=",
+            "status": "ACTIVE",
+            "params": {
+                "q": "Search query"
+            }
+        }]
+    }]
 }
