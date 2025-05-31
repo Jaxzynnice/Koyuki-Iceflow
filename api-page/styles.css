@@ -864,19 +864,29 @@ a:hover {
     white-space: nowrap;
 }
 
-.status-ready {
+.status-active {
     background-color: rgba(0, 184, 148, 0.15);
     color: var(--success-color);
-}
-
-.status-error {
-    background-color: rgba(255, 118, 117, 0.15);
-    color: var(--error-color);
 }
 
 .status-update {
     background-color: rgba(253, 203, 110, 0.15);
     color: var(--warning-color);
+}
+
+.status-new {
+    background-color: rgba(153, 204, 255, 0.15);
+    color: var(--new-color);
+}
+
+.status-maintenance {
+    background-color: rgba(255, 165, 0, 0.15);
+    color: var(--maintenance-color);
+}
+
+.status-error {
+    background-color: rgba(255, 118, 117, 0.15);
+    color: var(--error-color);
 }
 
 .api-status i {
