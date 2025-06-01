@@ -875,7 +875,7 @@ a:hover {
 }
 
 .status-new {
-    background-color: rgba(0, 0, 255, 0.15);
+    background-color: rgba(153, 204, 255, 0.15);
     color: var(--new-color);
 }
 
