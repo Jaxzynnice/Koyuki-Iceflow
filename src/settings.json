@@ -105,7 +105,7 @@
             "desc": "Get random meme image",
             "path": "/random/meme",
             "status": "ACTIVE"
-        }
+        },
         {
             "name": "Quotes",
             "desc": "Get random quotes",
