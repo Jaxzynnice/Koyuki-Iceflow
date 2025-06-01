@@ -1,6 +1,6 @@
 {
     "name": "Iceflow API",
-    "version": "v1.1.5",
+    "version": "v1.1.7",
     "description": "Unlock the power of seamless integration with our comprehensive Koyuki Iceflow API suite. Designed for developers, by developers.",
     "bannerImage": "/src/banner.png",
     "header": {
@@ -92,14 +92,26 @@
             "name": "Cats",
             "desc": "Get random cats image",
             "path": "/random/cats",
+            "status": "ERROR"
+        },
+        {
+            "name": "Hadits",
+            "desc": "Get random hadits",
+            "path": "/random/hadits",
             "status": "NEW"
         },
         {
             "name": "Meme",
             "desc": "Get random meme image",
             "path": "/random/meme",
+            "status": "ACTIVE"
+        }
+        {
+            "name": "Quotes",
+            "desc": "Get random quotes",
+            "path": "/random/quotes",
             "status": "NEW"
-        }]
+        },]
     },
     {
         "name": "Search",
