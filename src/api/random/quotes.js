@@ -2,19 +2,29 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 module.exports = function(app) {
-    async function hadits() {
+    async function quote() {
         try {
-            const {
-                data
-            } = await axios.get('https://api.myquran.com/v2/hadits/arbain/semua');
-            const datanya = data.data;
-            const randomData = datanya[Math.floor(Math.random() * datanya.length)];
+            const response = await axios.get("https://quotes.toscrape.com/random", {
+                headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                },
+            });
+
+            const $ = cheerio.load(response.data);
+            const quote = $(".quote .text").text().trim();
+            const author = $(".quote .author").text().trim();
+            const tags = $(".quote .tags .tag")
+            .map((_, el) => $(el).text().trim())
+            .get();
+
+            if (!quote || !author) {
+                throw new Error("Invalid response structure");
+            }
 
             return {
-                index: randomData.no,
-                title: randomData.judul,
-                arabic: randomData.arab,
-                indonesian: randomData.indo
+                quote,
+                author,
+                tags
             };
         } catch (error) {
             console.error(error);
@@ -22,9 +32,9 @@ module.exports = function(app) {
         }
     }
 
-    app.get('/random/hadits', async (req, res) => {
+    app.get('/random/quotes', async (req, res) => {
         try {
-            const msg = await hadist(text);
+            const msg = await quote(text);
             res.status(200).json({
                 status: true,
                 data: msg
