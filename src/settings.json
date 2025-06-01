@@ -76,7 +76,21 @@
             "path": "/aiimg/flux?prompt=",
             "status": "NEW",
             "params": {
-                "prompt": "Enter a Prompt"
+                "prompt": "Enter a prompt"
+            }
+        }]
+    },
+    {
+        "name": "Maker",
+        "items": [{
+            "name": "Quotely",
+            "desc": "Generate whatsapp quick chat",
+            "path": "/maker/qc?ava=&nama=&text=",
+            "status": "NEW",
+            "params": {
+                "ava": "Avatar URL",
+                "name": "Name account",
+                "text": "Text of the quick chat"
             }
         }]
     },
