@@ -6,7 +6,7 @@ module.exports = function(app) {
             const response = await axios.post('https://bot.lyo.su/quote/generate', {
                 "type": "quote",
                 "format": "png",
-                "backgroundColor": "fff",
+                "backgroundColor": "#ffffff",
                 "width": 512,
                 "height": 768,
                 "scale": 2,
@@ -28,7 +28,8 @@ module.exports = function(app) {
                     'Content-Type': 'application/json'
                 }
             })
-            const buffer = Buffer.from(response.data.result.image, 'base64')
+            
+            return Buffer.from(response.data.result.image, 'base64')
         } catch (error) {
             console.error(error);
             throw new Error(error.message);
