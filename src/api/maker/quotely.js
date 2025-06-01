@@ -1,13 +1,34 @@
 const axios = require('axios');
 
 module.exports = function(app) {
-    async function qc(logic) {
+    async function qc(pp, nick, teks) {
         try {
-            const response = await axios.get(`https://fast-flux-demo.replicate.workers.dev/api/generate-image?text=${encodeURIComponent(logic)}`, {
-                responseType: 'arraybuffer'
-            });
-
-            return Buffer.from(response.data);
+            const response = await axios.post('https://bot.lyo.su/quote/generate', {
+                "type": "quote",
+                "format": "png",
+                "backgroundColor": "fff",
+                "width": 512,
+                "height": 768,
+                "scale": 2,
+                "messages": [{
+                    "entities": [],
+                    "avatar": true,
+                    "from": {
+                        "id": 1,
+                        "name": nick,
+                        "photo": {
+                            "url": pp
+                        }
+                    },
+                    "text": teks,
+                    "replyMessage": {}
+                }]
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const buffer = Buffer.from(response.data.result.image, 'base64')
         } catch (error) {
             console.error(error);
             throw new Error(error.message);
@@ -17,17 +38,19 @@ module.exports = function(app) {
     app.get('/maker/qc', async (req, res) => {
         try {
             const {
-                prompt
+                ava,
+                name,
+                text
             } = req.query;
-            if (!prompt) {
+            if (!ava || !name || !text) {
                 return res.status(400).json({
                     status: false,
-                    message: 'Text Required'
+                    message: 'Input Parameters'
                 });
             }
-            const img = await flux(prompt);
+            const img = await qc(ava, name, text);
             res.writeHead(200, {
-                'Content-Type': 'image/webp',
+                'Content-Type': 'image/png',
                 'Content-Length': img.length
             });
             res.end(img);
