@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 module.exports = function(app) {
-    async function quote() {
+    async function quotes() {
         try {
             const response = await axios.get("https://quotes.toscrape.com/random", {
                 headers: {
@@ -17,7 +17,7 @@ module.exports = function(app) {
             .map((_, el) => $(el).text().trim())
             .get();
 
-            if (!quote || !author) {
+            if (!quote || !author || !tags) {
                 throw new Error("Invalid response structure");
             }
 
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
     app.get('/random/quotes', async (req, res) => {
         try {
-            const msg = await quote();
+            const msg = await quotes();
             res.status(200).json({
                 status: true,
                 data: msg
