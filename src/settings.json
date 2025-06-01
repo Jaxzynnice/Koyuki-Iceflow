@@ -111,7 +111,7 @@
             "desc": "Get random quotes",
             "path": "/random/quotes",
             "status": "NEW"
-        },]
+        }]
     },
     {
         "name": "Search",
