@@ -34,7 +34,7 @@ module.exports = function(app) {
 
     app.get('/random/quotes', async (req, res) => {
         try {
-            const msg = await quote(text);
+            const msg = await quote();
             res.status(200).json({
                 status: true,
                 data: msg
