@@ -211,13 +211,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Set page content from settings with fallbacks
         const currentYear = new Date().getFullYear();
-        setContent('page', 'textContent', settings.name, "Falcon-Api");
-        setContent('wm', 'textContent', `© ${currentYear} ${settings.apiSettings?.creator || 'FlowFalcon'}. All rights reserved.`);
+        setContent('page', 'textContent', settings.name, "Iceflow-Api");
+        setContent('wm', 'textContent', `© ${currentYear} ${settings.apiSettings?.creator || 'Iceflow'}. All rights reserved.`);
         setContent('header', 'textContent', settings.name, "Skyzopedia UI");
         setContent('name', 'textContent', settings.name, "Skyzopedia UI");
         setContent('sideNavName', 'textContent', settings.name || "API");
         setContent('version', 'textContent', settings.version, "v1.0");
-        setContent('versionHeader', 'textContent', settings.header?.status, "Active!");
+        setContent('versionHeader', 'textContent', settings.header?.status, "Free!");
         setContent('description', 'textContent', settings.description, "Simple API's");
 
         // Set banner image with improved error handling
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // Add loading animation and error handling
             dynamicImage.onerror = () => {
-                dynamicImage.src = '/api/src/banner.jpg'; // Fallback image
+                dynamicImage.src = '/api/src/banner.png'; // Fallback image
                 showToast('Failed to load banner image, using default', 'error');
             };
             
@@ -1052,7 +1052,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const notificationBell = document.querySelector('.notification-bell');
         if (notificationBell) {
             notificationBell.addEventListener('click', () => {
-                showToast('2 new updates available', 'info');
+                showToast('6 new updates available', 'info');
             });
         }
         
