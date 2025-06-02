@@ -1,52 +1,57 @@
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 module.exports = function(app) {
     async function qc(pp, nick, teks) {
         try {
-            const response = await axios.post('https://bot.lyo.su/quote/generate', {
-                "type": "quote",
-                "format": "png",
-                "backgroundColor": "#ffffff",
-                "width": 512,
-                "height": 768,
-                "scale": 2,
-                "messages": [{
-                    "entities": [],
-                    "avatar": true,
-                    "from": {
-                        "id": 1,
-                        "name": nick,
-                        "photo": {
-                            "url": pp
-                        }
-                    },
-                    "text": teks,
-                    "replyMessage": {}
-                }]
-            }, {
+            const response = await fetch('https://bot.lyo.su/quote/generate', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            })
-            
-            return Buffer.from(response.data.result.image, 'base64')
+                },
+                body: JSON.stringify({
+                    "type": "quote",
+                    "format": "png",
+                    "backgroundColor": "#ffffff",
+                    "width": 512,
+                    "height": 768,
+                    "scale": 2,
+                    "messages": [{
+                        "entities": [],
+                        "avatar": true,
+                        "from": {
+                            "id": 1,
+                            "name": nick,
+                            "photo": {
+                                "url": pp
+                            }
+                        },
+                        "text": teks,
+                        "replyMessage": {}
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
+            }
+
+            const buffer = await response.buffer();
+            return buffer;
+
         } catch (error) {
-            console.error(error);
+            console.error("Error in qc function:", error);
             throw new Error(error.message);
         }
     }
 
     app.get('/maker/qc', async (req, res) => {
         try {
-            const {
-                ava,
-                name,
-                text
-            } = req.query;
+            const { ava, name, text } = req.query;
             if (!ava || !name || !text) {
                 return res.status(400).json({
                     status: false,
-                    message: 'Input Parameters'
+                    message: 'Missing Input Parameters'
                 });
             }
             const img = await qc(ava, name, text);
@@ -56,6 +61,7 @@ module.exports = function(app) {
             });
             res.end(img);
         } catch (error) {
+            console.error("Error in /maker/qc route:", error);
             res.status(500).json({
                 status: false,
                 message: error.message
