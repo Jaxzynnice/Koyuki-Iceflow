@@ -138,5 +138,17 @@
                 "q": "Search query"
             }
         }]
+    },
+    {
+        "name": "Tools",
+        "items": [{
+            "name": "YouTube Monetization",
+            "desc": "Monet Checker",
+            "path": "/tools/ytmonet?url=",
+            "status": "NEW",
+            "params": {
+                "url": "URL Youtube"
+            }
+        }]
     }]
 }
