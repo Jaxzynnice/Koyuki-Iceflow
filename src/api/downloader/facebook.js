@@ -37,7 +37,8 @@ module.exports = function(app) {
                 throw new Error("Failed to fetch video: " + response.data.message);
             }
         } catch (error) {
-            throw error;
+            console.error(error);
+            throw new Error(error.message);
         }
     }
 
@@ -52,7 +53,7 @@ module.exports = function(app) {
                     message: 'URL Required'
                 });
             }
-            const request = await yt5sIo(url);
+            const request = await yt5sIo(decodeURIComponent(url));
             const response = await axios.get(request.videoQualities[0].downloadLink, {
                 responseType: 'arraybuffer'
             });
