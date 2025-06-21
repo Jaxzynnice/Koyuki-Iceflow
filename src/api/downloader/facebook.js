@@ -18,37 +18,21 @@ module.exports = function(app) {
  
             if (response.data.status === "ok") {
                 const $ = cheerio.load(response.data.data);
- 
-                if (/^(https?:\/\/)?(www\.)?(facebook\.com|fb\.watch)\/.+/i.test(url)) {
-                    const thumbnailUrl = $('img').attr("src");
-                    const videoQualities = [];
-                    $('table tbody tr').each((index, element) => {
-                        const quality = $(element).find('.video-quality').text().trim();
-                        const downloadLink = $(element).find('a.download-link-fb').attr("href");
-                        if (quality && downloadLink) {
-                            videoQualities.push({ quality, downloadLink });
-                        }
-                    });
- 
-                    return {
-                        thumbnailUrl,
-                        videoQualities
-                    };
-                } else if (/^(https?:\/\/)?(www\.)?instagram\.com\/(p|reel)\/.+/i.test(url)) {
-                    const videoUrl = $('a[title="Download Video"]').attr("href");
-                    const thumbnailUrl = $('img').attr("src");
- 
-                    if (!videoUrl || !thumbnailUrl) {
-                        throw new Error("Video or thumbnail not found in the response.");
+                
+                const thumbnailUrl = $('img').attr("src");
+                const videoQualities = [];
+                $('table tbody tr').each((index, element) => {
+                    const quality = $(element).find('.video-quality').text().trim();
+                    const downloadLink = $(element).find('a.download-link-fb').attr("href");
+                    if (quality && downloadLink) {
+                        videoQualities.push({ quality, downloadLink });
                     }
+                });
  
-                    return {
-                        thumbnailUrl,
-                        videoUrl
-                    };
-                } else {
-                    throw new Error("URL tidak valid. Harap masukkan URL Facebook atau Instagram.");
-                }
+                return {
+                    thumbnailUrl,
+                    videoQualities
+                };
             } else {
                 throw new Error("Failed to fetch video: " + response.data.message);
             }
