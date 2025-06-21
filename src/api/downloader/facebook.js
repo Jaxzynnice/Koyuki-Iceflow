@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const decodeURIComponent = require('decode-uri-component');
 
 module.exports = function(app) {
     async function yt5sIo(url) {
