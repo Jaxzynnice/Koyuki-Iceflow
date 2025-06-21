@@ -1,6 +1,5 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const decodeURIComponent = require('decode-uri-component');
 
 module.exports = function(app) {
     async function yt5sIo(url) {
@@ -54,7 +53,7 @@ module.exports = function(app) {
                     message: 'URL Required'
                 });
             }
-            const request = await yt5sIo(decodeURIComponent(url));
+            const request = await yt5sIo(url);
             const response = await axios.get(request.videoQualities[0].downloadLink, {
                 responseType: 'arraybuffer'
             });
