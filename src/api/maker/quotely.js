@@ -36,9 +36,7 @@ module.exports = function(app) {
                 throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
             }
 
-            const buffer = await response.buffer();
-            return buffer;
-
+            return response.buffer();
         } catch (error) {
             console.error("Error in qc function:", error);
             throw new Error(error.message);
@@ -47,8 +45,8 @@ module.exports = function(app) {
 
     app.get('/maker/qc', async (req, res) => {
         try {
-            const { ava, name, text } = req.query;
-            if (!ava || !name || !text) {
+            const { url, name, text } = req.query;
+            if (!url || !name || !text) {
                 return res.status(400).json({
                     status: false,
                     message: 'Missing Input Parameters'
