@@ -90,6 +90,33 @@
             "params": {
                 "url": "Enter a Facebook URL"
             }
+        },
+        {
+            "name": "Instagram",
+            "desc": "Instagram Video Downloader",
+            "path": "/downloder/instagram?url=",
+            "status": "NEW",
+            "params": {
+                "url": "Enter a Instagram URL"
+            }
+        },
+        {
+            "name": "Threads",
+            "desc": "Threads Video Downloader",
+            "path": "/downloder/threads?url=",
+            "status": "NEW",
+            "params": {
+                "url": "Enter a Threads URL"
+            }
+        },
+        {
+            "name": "Tiktok",
+            "desc": "Tiktok Video Downloader",
+            "path": "/downloder/tiktok?url=",
+            "status": "NEW",
+            "params": {
+                "url": "Enter a Tiktok URL"
+            }
         }]
     },
     {
