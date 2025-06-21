@@ -64,7 +64,7 @@ module.exports = function(app) {
                 });
             }
             const result = await tiktokIo(url);
-            res.writeHead.json(200, {
+            res.status(200).json({
                 status: true,
                 result
             });
