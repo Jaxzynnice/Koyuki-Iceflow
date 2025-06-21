@@ -81,6 +81,18 @@
         }]
     },
     {
+        "name": "Downloader",
+        "items": [{
+            "name": "Facebook",
+            "desc": "Facebook Video Downloader",
+            "path": "/downloder/facebook?url=",
+            "status": "NEW",
+            "params": {
+                "url": "Enter a Facebook URL"
+            }
+        }]
+    },
+    {
         "name": "Maker",
         "items": [{
             "name": "Quotely",
