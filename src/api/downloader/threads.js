@@ -41,9 +41,15 @@ module.exports = function(app) {
                     status: false,
                     message: 'URL Required'
                 });
+            } else if (!/^(https?:\/\/)?(www\.)?threads\.(com|net)\/.+/i.test(url)) {
+                return res.status(400).json({
+                  status: false,
+                  message: 'URL Invalid'
+                });
             }
-            const request = await threadsDl(url);
-            const response = await axios.get(request.videoUrl, {
+      
+            const result = await threadsDl(url);
+            const response = await axios.get(result, {
                 responseType: 'arraybuffer'
             });
             const buffer = await Buffer.from(response.data);
