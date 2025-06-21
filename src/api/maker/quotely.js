@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 module.exports = function(app) {
     async function qc(pp, nick, teks) {
