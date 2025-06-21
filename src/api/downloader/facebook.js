@@ -1,42 +1,60 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const FormData = require('form-data');
 
 module.exports = function(app) {
-    async function getmyfb(urlFb) {
-      try {
-        const form = new FormData();
-        form.append('id', urlFb);
-        form.append('locale', 'id');
+    async function yt5sIo(url) {
+        try {
+            const form = new URLSearchParams();
+            form.append("q", url);
+            form.append("vt", "home");
  
-        const response = await axios.post('https://getmyfb.com/process', form, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+            const response = await axios.post('https://yt5s.io/api/ajaxSearch', form, {
+                headers: {
+                    "Accept": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            });
  
-        if (response.status === 200) {
-          const $ = cheerio.load(response.data);
-          const title = $('.results-item-text').text().trim();
-          const thumbnail = $('.results-item-image').attr('src');
-          const urlDownloads = {};
-          const urlHd = $('.results-list li:nth-child(1) a').attr('href');
-          const urlSd = $('.results-list li:nth-child(2) a').attr('href');
-          return {
-              title: title,
-              thumb: thumbnail,
-              video: {
-                  hd: urlHd,
-                  sd: urlSd,
-              }
-          }
-        } else {
-          return response.status;
+            if (response.data.status === "ok") {
+                const $ = cheerio.load(response.data.data);
+ 
+                if (/^(https?:\/\/)?(www\.)?(facebook\.com|fb\.watch)\/.+/i.test(url)) {
+                    const thumbnailUrl = $('img').attr("src");
+                    const videoQualities = [];
+                    $('table tbody tr').each((index, element) => {
+                        const quality = $(element).find('.video-quality').text().trim();
+                        const downloadLink = $(element).find('a.download-link-fb').attr("href");
+                        if (quality && downloadLink) {
+                            videoQualities.push({ quality, downloadLink });
+                        }
+                    });
+ 
+                    return {
+                        thumbnailUrl,
+                        videoQualities
+                    };
+                } else if (/^(https?:\/\/)?(www\.)?instagram\.com\/(p|reel)\/.+/i.test(url)) {
+                    const videoUrl = $('a[title="Download Video"]').attr("href");
+                    const thumbnailUrl = $('img').attr("src");
+ 
+                    if (!videoUrl || !thumbnailUrl) {
+                        throw new Error("Video or thumbnail not found in the response.");
+                    }
+ 
+                    return {
+                        thumbnailUrl,
+                        videoUrl
+                    };
+                } else {
+                    throw new Error("URL tidak valid. Harap masukkan URL Facebook atau Instagram.");
+                }
+            } else {
+                throw new Error("Failed to fetch video: " + response.data.message);
+            }
+        } catch (error) {
+            throw error;
         }
-      } catch (error) {
-        console.error(error);
-        throw new Error(error.message);
-      }
     }
 
     app.get('/downloader/facebook', async (req, res) => {
@@ -50,12 +68,16 @@ module.exports = function(app) {
                     message: 'URL Required'
                 });
             }
-            const vid = await getmyfb(url);
-            res.writeHead(200, {
-                'Content-Type': 'image/webp',
-                'Content-Length': vid.length
+            const request = await yt5sIo(url);
+            const response = await axios.get(request.videoQualities[0].downloadLink, {
+                responseType: 'arraybuffer'
             });
-            res.end(vid);
+            const buffer = await Buffer.from(response.data);
+            res.writeHead(200, {
+                'Content-Type': 'video/mp4',
+                'Content-Length': buffer.length
+            });
+            res.end(buffer);
         } catch (error) {
             res.status(500).json({
                 status: false,
