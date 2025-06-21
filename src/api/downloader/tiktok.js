@@ -63,10 +63,10 @@ module.exports = function(app) {
                     message: 'URL Required'
                 });
             }
-            const request = await tiktokIo(url);
-            res.writeHead(200, {
+            const result = await tiktokIo(url);
+            res.writeHead.json(200, {
                 status: true,
-                result: request
+                result
             });
         } catch (error) {
             res.status(500).json({
