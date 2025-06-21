@@ -5,7 +5,7 @@ module.exports = function(app) {
     async function yt5sIo(url) {
         try {
             const form = new URLSearchParams();
-            form.append("q", decodeURIComponent(url));
+            form.append("q", url);
             form.append("vt", "home");
  
             const response = await axios.post('https://yt5s.io/api/ajaxSearch', form, {
